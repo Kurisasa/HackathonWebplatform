@@ -194,8 +194,6 @@ public class DataUtil {
 
             log.log(Level.OFF, "Company has been registered for: {0} ",
                     new Object[]{c.getName()});
-
-            
             } 
         catch (Exception e) {
             log.log(Level.SEVERE, "Failed", e);

@@ -8,6 +8,8 @@ package com.hackathon.util;
 import com.hackathon.data.Admin;
 import com.hackathon.data.Challenge;
 import com.hackathon.data.City;
+import com.hackathon.data.Company;
+import com.hackathon.data.Country;
 import com.hackathon.data.Hackathon;
 import com.hackathon.data.Hacker;
 import com.hackathon.data.Hackimage;
@@ -20,6 +22,8 @@ import com.hackathon.data.Town;
 import com.hackathon.dto.AdminDTO;
 import com.hackathon.dto.ChallengeDTO;
 import com.hackathon.dto.CityDTO;
+import com.hackathon.dto.CompanyDTO;
+import com.hackathon.dto.CountryDTO;
 import com.hackathon.dto.HackImageDTO;
 import com.hackathon.dto.HackathonDTO;
 import com.hackathon.dto.HackerDTO;
@@ -67,7 +71,7 @@ public class ListUtil {
             throw new DataException("failed ........");
         }
         return resp;
-    }
+      }
 
     public ResponseDTO getProvinceList() throws DataException {
         ResponseDTO resp = new ResponseDTO();
@@ -287,6 +291,94 @@ public class ListUtil {
         }
         return resp;
     }
+     public ResponseDTO getProvinceByName(String name) throws DataException {
+        ResponseDTO resp = new ResponseDTO();
+        try {
+            Query q = em.createNamedQuery("Province.findByName", Province.class);
+            q.setParameter("name", name);
+            List<Province> list = q.getResultList();
+            resp.setProvinceList(new ArrayList<ProvinceDTO>());
+            for (Province p : list) {
+                resp.getProvinceList().add(new ProvinceDTO(p));
+            }
+            log.log(Level.OFF, "Found Provinces : {0}", resp.getProvinceList().size());
+        } catch (Exception e) {
+            log.log(Level.OFF, "failed to get provinces", e);
+            throw new DataException("failed ........");
+        }
+        return resp;
+    }
+     
+     public ResponseDTO getHackathonByName(String name) throws DataException {
+        ResponseDTO resp = new ResponseDTO();
+        try {
+            Query q = em.createNamedQuery("Hackathon.findByName", Hackathon.class);
+            q.setParameter("name", name);
+            List<Hackathon> list = q.getResultList();
+            resp.setHackathonList(new ArrayList<HackathonDTO>());
+            for (Hackathon p : list) {
+                resp.getHackathonList().add(new HackathonDTO(p));
+            }
+            log.log(Level.OFF, "Found Hackathon : {0}", resp.getHackathonList().size());
+        } catch (Exception e) {
+            log.log(Level.OFF, "failed to get Hackathon", e);
+            throw new DataException("failed ........");
+        }
+        return resp;
+    }
+     
+   public ResponseDTO getReportByTeam(Integer teamID) throws DataException {
+        ResponseDTO resp = new ResponseDTO();
+        try {
+            Query q = em.createNamedQuery("Team.findByTeamID", Team.class);
+            q.setParameter("teamID", teamID);
+            List<Team> list = q.getResultList();
+            resp.setTeamList(new ArrayList<TeamDTO>());
+            for (Team p : list) {
+                resp.getTeamList().add(new TeamDTO(p));
+            }
+            log.log(Level.OFF, "Found Team : {0}", resp.getTeamList().size());
+        } catch (Exception e) {
+            log.log(Level.OFF, "failed to get Team", e);
+            throw new DataException("failed ........");
+        }
+        return resp;
+    }
+     public ResponseDTO getTeamByName(String name) throws DataException {
+        ResponseDTO resp = new ResponseDTO();
+        try {
+            Query q = em.createNamedQuery("Team.findByName", Team.class);
+            q.setParameter("name", name);
+            List<Team> list = q.getResultList();
+            resp.setTeamList(new ArrayList<TeamDTO>());
+            for (Team p : list) {
+                resp.getTeamList().add(new TeamDTO(p));
+            }
+            log.log(Level.OFF, "Found Team : {0}", resp.getTeamList().size());
+        } catch (Exception e) {
+            log.log(Level.OFF, "failed to get Team", e);
+            throw new DataException("failed ........");
+        }
+        return resp;
+    }
+     
+     /* public ResponseDTO getCompanyByName(String name) throws DataException {
+        ResponseDTO resp = new ResponseDTO();
+        try {
+            Query q = em.createNamedQuery("Company.findByName", Company.class);
+            q.setParameter("name", name);
+            List<Company> list = q.getResultList();
+            resp.setCompanyList(new ArrayList<CompanyDTO>());
+            for (Company p : list) {
+                resp.getCompanyList().add(new CompanyDTO(p));
+            }
+            log.log(Level.OFF, "Found Company : {0}", resp.getCompanyList().size());
+        } catch (Exception e) {
+            log.log(Level.OFF, "failed to get Company", e);
+            throw new DataException("failed ........");
+        }
+        return resp;
+    }*/
     
 static final Logger log = Logger.getLogger(ListUtil.class.getSimpleName());
 }
